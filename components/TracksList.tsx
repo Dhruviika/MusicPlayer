@@ -19,12 +19,17 @@ export default function TracksList({
   tracks,
   ...flatlistProps
 }: TracksListProps) {
+  const handleTrackSelect = (track: Track) => {
+    console.log("Selected track", track);
+  };
   return (
     <FlatList
       data={tracks}
       contentContainerStyle={{ paddingTop: 15, paddingBottom: 130 }}
       ItemSeparatorComponent={ItemDivider}
-      renderItem={({ item: track }) => <TrackListItem track={track} />}
+      renderItem={({ item: track }) => (
+        <TrackListItem track={track} onTrackSelect={handleTrackSelect} />
+      )}
       {...flatlistProps}
     />
   );

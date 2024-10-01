@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import React, { useState } from "react";
 import Feather from "@expo/vector-icons/Feather";
+import { screenPadding } from "@/constants/token";
 
 type searchProps = {
   search: string;
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     gap: 10,
     alignItems: "center",
     padding: 7,
-    marginHorizontal: 24,
+    marginHorizontal: screenPadding.horizontal,
     borderRadius: 10,
   },
   searchInput: {

@@ -4,16 +4,18 @@ import FastImage from "react-native-fast-image";
 import { unknownTrackImageUri } from "@/constants/images";
 import { defaultStyles } from "@/styles";
 import { colors, fontSize } from "@/constants/token";
-import { Track } from "react-native-track-player";
+import { Track, useActiveTrack } from "react-native-track-player";
+import { Entypo } from "@expo/vector-icons";
 
 export type TrackListItemProps = {
   track: Track;
+  onTrackSelect: (track: Track) => void;
 };
 
-const TrackListItem = ({ track }: TrackListItemProps) => {
-  const isActiveTrack = false;
+const TrackListItem = ({ track, onTrackSelect }: TrackListItemProps) => {
+  const isActiveTrack = useActiveTrack()?.url === track.url;
   return (
-    <TouchableHighlight>
+    <TouchableHighlight onPress={() => onTrackSelect(track)}>
       <View style={styles.trackItemContainer}>
         <View>
           <FastImage
@@ -27,19 +29,29 @@ const TrackListItem = ({ track }: TrackListItemProps) => {
             }}
           />
         </View>
-        <View style={{ width: "100%" }}>
-          <Text
-            style={{
-              ...styles.trackTitle,
-              color: isActiveTrack ? colors.primary : colors.text,
-            }}
-          >
-            {track.title}
-          </Text>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <View style={{ width: "100%" }}>
+            <Text
+              style={{
+                ...styles.trackTitle,
+                color: isActiveTrack ? colors.primary : colors.text,
+              }}
+            >
+              {track.title}
+            </Text>
 
-          {track.artist && (
-            <Text style={styles.trackArtist}>{track.artist}</Text>
-          )}
+            {track.artist && (
+              <Text style={styles.trackArtist}>{track.artist}</Text>
+            )}
+          </View>
+          <Entypo name="dots-three-horizontal" size={18} color={colors.icon} />
         </View>
       </View>
     </TouchableHighlight>
