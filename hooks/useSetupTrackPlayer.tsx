@@ -21,7 +21,7 @@ const setupPlayer = async () => {
     ],
   });
 
-  await TrackPlayer.setVolume(0.3);
+  await TrackPlayer.setVolume(0.5);
   await TrackPlayer.setRepeatMode(RepeatMode.Queue);
 };
 

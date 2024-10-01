@@ -11,13 +11,14 @@ import FastImage from "react-native-fast-image";
 import { unknownTrackImageUri } from "@/constants/images";
 import { defaultStyles } from "@/styles";
 import { PlayPauseButton, SkipToNextButton } from "./PlayerControls";
+import { useLastActiveTrack } from "hooks/useLastActiveTrack";
+import { MovingText } from "./MovingText";
 
 const FloatingPlayer = ({ style }: ViewProps) => {
   const activeTrack = useActiveTrack();
+  const lastActiveTrack = useLastActiveTrack();
 
-  const displayedTrack: Track = activeTrack ?? {
-    title: "No track playing",
-  };
+  const displayedTrack: Track = activeTrack ?? lastActiveTrack;
 
   if (!displayedTrack) return null;
 
@@ -31,7 +32,11 @@ const FloatingPlayer = ({ style }: ViewProps) => {
           style={styles.trackArtworkImage}
         />
         <View style={styles.trackTitleContainer}>
-          <Text style={styles.trackTitle}>{displayedTrack.title}</Text>
+          <MovingText
+            style={styles.trackTitle}
+            text={displayedTrack.title ?? ""}
+            animationThreshold={25}
+          />
         </View>
         <View style={styles.trackControlsContainer}>
           <PlayPauseButton iconSize={24} />

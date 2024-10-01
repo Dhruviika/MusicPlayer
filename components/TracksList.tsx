@@ -3,7 +3,9 @@ import React from "react";
 import library from "@/assets/data/library.json";
 import TrackListItem from "./TrackListItem";
 import { utilsStyles } from "@/styles";
-import { Track } from "react-native-track-player";
+import TrackPlayer, { Track } from "react-native-track-player";
+import FastImage from "react-native-fast-image";
+import { unknownTrackImageUri } from "@/constants/images";
 
 export type TracksListProps = Partial<FlatListProps<Track>> & {
   tracks: Track[];
@@ -19,12 +21,26 @@ export default function TracksList({
   tracks,
   ...flatlistProps
 }: TracksListProps) {
-  const handleTrackSelect = (track: Track) => {
-    console.log("Selected track", track);
+  const handleTrackSelect = async (track: Track) => {
+    await TrackPlayer.load(track);
+    await TrackPlayer.play();
   };
   return (
     <FlatList
       data={tracks}
+      ListEmptyComponent={
+        <View>
+          <Text style={utilsStyles.emptyContentText}>No songs found</Text>
+
+          <FastImage
+            source={{
+              uri: unknownTrackImageUri,
+              priority: FastImage.priority.normal,
+            }}
+            style={utilsStyles.emptyContentImage}
+          />
+        </View>
+      }
       contentContainerStyle={{ paddingTop: 15, paddingBottom: 130 }}
       ItemSeparatorComponent={ItemDivider}
       renderItem={({ item: track }) => (
