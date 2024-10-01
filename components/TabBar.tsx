@@ -3,7 +3,6 @@ import React from "react";
 import { colors } from "@/constants/token";
 import {
   FontAwesome,
-  FontAwesome5,
   FontAwesome6,
   Ionicons,
   MaterialCommunityIcons,
@@ -106,15 +105,15 @@ export default TabBar;
 const styles = StyleSheet.create({
   tabbar: {
     position: "absolute",
-    bottom: 25,
+    bottom: 0,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.85)",
-    marginHorizontal: 20,
+    // marginHorizontal: 20,
     paddingVertical: 15,
-    borderRadius: 25,
-    borderCurve: "continuous",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
     shadowColor: "black",
     shadowOffset: { width: 0, height: 10 },
     shadowRadius: 10,
